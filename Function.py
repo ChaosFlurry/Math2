@@ -52,13 +52,21 @@ class Function:
         fx = str.replace(self.parsed_equation, "x", str(x))
         return eval(fx)
     
-    def get_area(self, lower, upper):
-        dx = (upper - lower) / 1000000
+    def differentiate(self, x):
+        h = 0.0001
+        return (self.f(x + h) - self.f(x - h)) / (2 * h)
+    
+    def integrate(self, lower, upper):
+        dx = 0.0001
         x = lower
         area = 0
         while x < upper:
-            area += self.f(x) * dx
-            x += dx
+            try:
+                area += self.f(x) * dx
+                x += dx
+            except ValueError:
+                x += dx
+                continue
         return area
         
 

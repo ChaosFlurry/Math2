@@ -3,6 +3,8 @@ from Fraction import Fraction
 
 
 class Utilities:
+    bernoullis = []
+    
     @staticmethod
     def ncr(n, r):
         if n == r:
@@ -30,7 +32,11 @@ class Utilities:
         if n != 1 and n % 2 != 0:
             return Fraction.value_of(0)
         
+        if len(Utilities.bernoullis) > n:
+            return Utilities.bernoullis[n]
+        
         result = Fraction.value_of(0)
         for k in range(0, n):
             result = result.add(Utilities.ncr(n, k).negate().multiply(Utilities.bernoulli(k)).divide(Fraction.value_of(n - k + 1))).simplify()
+        Utilities.bernoullis.append(result)
         return result
